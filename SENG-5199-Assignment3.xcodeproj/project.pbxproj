@@ -11,6 +11,7 @@
 		743B53122BA60406008665E4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743B53112BA60406008665E4 /* ContentView.swift */; };
 		743B53142BA60407008665E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 743B53132BA60407008665E4 /* Assets.xcassets */; };
 		743B53172BA60407008665E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 743B53162BA60407008665E4 /* Preview Assets.xcassets */; };
+		743B53202BA681F7008665E4 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743B531F2BA681F7008665E4 /* Strings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		743B53112BA60406008665E4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		743B53132BA60407008665E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		743B53162BA60407008665E4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		743B531F2BA681F7008665E4 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				743B530F2BA60406008665E4 /* SENG_5199_Assignment3App.swift */,
 				743B53112BA60406008665E4 /* ContentView.swift */,
+				743B531F2BA681F7008665E4 /* Strings.swift */,
 				743B53132BA60407008665E4 /* Assets.xcassets */,
 				743B53152BA60407008665E4 /* Preview Content */,
 			);
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				743B53122BA60406008665E4 /* ContentView.swift in Sources */,
+				743B53202BA681F7008665E4 /* Strings.swift in Sources */,
 				743B53102BA60406008665E4 /* SENG_5199_Assignment3App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
