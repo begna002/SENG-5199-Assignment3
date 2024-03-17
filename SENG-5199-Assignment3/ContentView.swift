@@ -12,9 +12,14 @@ struct ContentView: View {
     @State
     private var guessedLetters: String = ""
     
-    @State
-    private var word: String = getRandomWord()
+    private var wordHint: (key: String, value: String) = getRandomWord()
     
+    @State
+    private var word: String
+    
+    @State
+    private var hint: String
+
     @State
     private var wordList: [String] = ["", "", "", "", "", ""]
     
@@ -36,6 +41,9 @@ struct ContentView: View {
     @State
     private var wordVisible: Bool = false
     
+    @State
+    private var hintVisible: Bool = false
+    
     @State 
     private var scale = 1.0
     
@@ -44,6 +52,12 @@ struct ContentView: View {
     
     var alphabet: [String] = ["A","B","C","D","E","F","G","H","I","J","K","L","M",
                               "N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    
+    init (){
+        let wordHint: (key: String, value: String) = getRandomWord()
+        word = wordHint.value
+        hint = wordHint.key
+    }
     
     var body: some View {
         ZStack {
@@ -110,7 +124,7 @@ struct ContentView: View {
                         Text("You Lose :(")
                     }
                 } else {
-                    Text( "Select Letter to guess!")
+                    Text( "Select Letter to guess")
                 }
             }
             .offset(y: 10)
@@ -137,22 +151,33 @@ struct ContentView: View {
                     .backgroundStyle(strikeList[2] == "X" ? Color.red : strikeList[2] == "W" ? Color.green : Color.gray)
                     
                 }
+            }
+            .offset(y: 200)
+            
+            VStack {
+                Button(action: {
+                    hintVisible = !hintVisible
+                }) {
+                    Text(hintVisible || gameOver ? hint : "Click to see Hint")
+                }
+                .disabled(gameOver)
+                .offset(y: -20)
                 
                 Button(action: {
                     wordVisible = !wordVisible
                 }) {
                     Text(wordVisible || gameOver ? word : "Click to see word")
                 }
-                .offset(y: 100)
+                .disabled(gameOver)
             }
-            .offset(y: 240)
+            .offset(y: 340)
 
             
             if (gameOver) {
                 Button("Play Again") {
                     resetGame()
                 }
-                .offset(y: 290)
+                .offset(y: 270)
             }
             
         }
@@ -215,16 +240,21 @@ struct ContentView: View {
                                          word: word,
                                          winLoss: isWin ? "W" : "L",
                                          strikes: strikeCount))
+        
+        let wordHint: (key: String, value: String) = getRandomWord()
+        word = wordHint.value
+        hint = wordHint.key
+        
         guessedLetters = ""
         wordList = ["", "", "", "", "", ""]
         strikeList = ["", "", ""]
         strikeCount = 0
         hitCount =  0
         scale = 1.0
-        word = getRandomWord()
         gameOver = false
         isWin = false
         wordVisible = false
+        hintVisible = false
     }
     
     func checkLetter(letter: String) {

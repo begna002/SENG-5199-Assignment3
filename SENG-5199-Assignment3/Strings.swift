@@ -7,12 +7,25 @@
 
 import Foundation
 
+var foodWords = "Apple Bread Steak Pasta Salad Pizza Bacon Onion Lemon Candy Fruit Grill Toast Sushi Chees Prawn Muffi Burge Rice Peach"
+var dangerWords = "Risky Peril Toxic Blood Venom Flame Tiger Crash Storm Fears Alert Wound Blare Quake Siren Taint Alarm Grief Scare"
+var financeWods = "Asset Stock Bonds Trade Loans Debts Funds Value Taxes Yield Rates Price Richy Risky Taxed Costs Money Bonus Loans Bills"
+var geographyWords = "Coast Plain Delta River Ocean Hills Mount Plate Ridge Lakes Field Basin Dunes Swale Beach Tidal Fjord Flats Creek Cliffs"
+var writtingWords = "Write Novel Draft Words Inked Poems Typed Manus Sonet Typed Lines Rhyme Verse Quill Notes Texts Essay Script Story Prose"
 
-var words = "about after again chair clean clear could doubt earth every found fruit grant happy heard house human learn light lunch money music never north often other plant power ready right south table teach today water whole woman world young again alive alone always angry beach black blood books build cause come could court cover crazy dance death doubt dress drink early enjoy equal event fight floor force front funny games grant green happy heard hello honor house humor idea issue known laugh learn leave light lunch maybe match metal money month movie music never north often owner paint paper party peace point power quiet ready right river round shout skull sleep smile smoke soft solve sound space speak spend sport spring start story study sugar sweet table teach thank think throw touch train travel treat truth under value visit voice water whole woman world young aside aware break bring build cause clean climb close color come could count cover crazy dance death doubt dress drink early enjoy equal event fight floor force found front funny games giant grant green happy heard hello honor house humor issue known laugh learn leave light lunch maybe match metal money month movie music never north often owner paint paper party peace point power quiet ready right river round shout skull sleep smile smoke soft solve sound space speak spend sport spring start story study sugar sweet table teach thank think throw touch train travel treat truth under value visit voice water whole"
+var wordMap = [
+    "Food": foodWords.components(separatedBy: " "),
+    "Danger": dangerWords.components(separatedBy: " "),
+    "Finance": financeWods.components(separatedBy: " "),
+    "Geography": geographyWords.components(separatedBy: " "),
+    "Writting": writtingWords.components(separatedBy: " ")
+]
 
-func getRandomWord() -> String {
-    let wordsList = words.components(separatedBy: " ")
-    
-    return wordsList.randomElement() ?? "apple"
+func getRandomWord() -> (key: String, value: String) {
+    let words = wordMap.randomElement()
+    let key = words?.key ?? "food"
+    let value = words?.value.randomElement() ?? "apple"
+       
+    return (key, value)
 }
 
