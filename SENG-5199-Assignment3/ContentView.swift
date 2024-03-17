@@ -124,7 +124,7 @@ struct ContentView: View {
                         Text("You Lose :(")
                     }
                 } else {
-                    Text( "Select Letter to guess")
+                    Text( "Select letter to guess")
                 }
             }
             .offset(y: 10)
@@ -158,7 +158,7 @@ struct ContentView: View {
                 Button(action: {
                     hintVisible = !hintVisible
                 }) {
-                    Text(hintVisible || gameOver ? hint : "Click to see Hint")
+                    Text(hintVisible || gameOver ? hint : "Click to see hint")
                 }
                 .disabled(gameOver)
                 .offset(y: -20)
