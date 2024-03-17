@@ -36,13 +36,15 @@ struct ContentView: View {
     @State
     private var wordVisible: Bool = false
     
+    @State 
+    private var scale = 1.0
+    
     @State
     private var gameRecordList: [GameRecord] = []
     
     var alphabet: [String] = ["A","B","C","D","E","F","G","H","I","J","K","L","M",
                               "N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
     
-
     var body: some View {
         ZStack {
             VStack {
@@ -86,20 +88,34 @@ struct ContentView: View {
             .offset(y: -70)
 
             VStack {
-                
                 if (gameOver) {
                     if (isWin) {
-                        Text("You Win! :)")
-                            .offset(y: -10)
+                        if (strikeCount == 0) {
+                            Text("No Strikes!")
+                                .font(.system(size: 36))
+                                .frame(width: 200, height: 200)
+                                .scaleEffect(scale)
+                                .onAppear {
+                                    let baseAnimation = Animation.easeInOut(duration: 1)
+                                    let repeated = baseAnimation.repeatCount(5, autoreverses: true)
+
+                                    withAnimation(repeated) {
+                                        scale = 0.5
+                                    }
+                                }
+                        } else {
+                            Text("You Win! :)")
+                        }
                     } else {
                         Text("You Lose :(")
-                            .offset(y: -10)
                     }
                 } else {
                     Text( "Select Letter to guess!")
-                        .offset(y: -10)
                 }
-                
+            }
+            .offset(y: 10)
+            
+            VStack {
                 SelectedLetters
             }
             .offset(y: 100)
@@ -204,6 +220,7 @@ struct ContentView: View {
         strikeList = ["", "", ""]
         strikeCount = 0
         hitCount =  0
+        scale = 1.0
         word = getRandomWord()
         gameOver = false
         isWin = false
