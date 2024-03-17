@@ -143,7 +143,7 @@ struct ContentView: View {
                     Text("You Lose :(")
                 }
             } else {
-                Text( "Select letter to guess")
+                Text("Select letter to guess")
             }
         }
         .offset(y: 10)
@@ -204,7 +204,6 @@ struct ContentView: View {
     var StrikeView: some View {
         VStack {
             HStack {
-                
                 GroupBox() {
                     Text(strikeList[0])
                 }
@@ -296,10 +295,8 @@ struct ContentView: View {
         }
         
         strikeList[strikeCount] = "X"
-        if (strikeCount < 2) {
-            strikeCount += 1
-        } else {
-            strikeCount += 1
+        strikeCount += 1
+        if (strikeCount == 3) {
             gameOver = true
             
             for (index, char) in word.enumerated() {
