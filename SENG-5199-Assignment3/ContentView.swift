@@ -158,7 +158,7 @@ struct ContentView: View {
                 Button(action: {
                     hintVisible = !hintVisible
                 }) {
-                    Text(hintVisible || gameOver ? hint : "Click to see hint")
+                    Text(hintVisible ? hint : "Click to see hint")
                 }
                 .disabled(gameOver)
                 .offset(y: -20)
@@ -166,7 +166,7 @@ struct ContentView: View {
                 Button(action: {
                     wordVisible = !wordVisible
                 }) {
-                    Text(wordVisible || gameOver ? word : "Click to see word")
+                    Text(wordVisible ? word : "Click to see word")
                 }
                 .disabled(gameOver)
             }
@@ -292,6 +292,10 @@ struct ContentView: View {
         } else {
             strikeCount += 1
             gameOver = true
+            
+            for (index, char) in word.enumerated() {
+                wordList[index] = String(char).uppercased()
+            }
         }
     }
     
