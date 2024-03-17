@@ -11,9 +11,7 @@ import Combine
 struct ContentView: View {
     @State
     private var guessedLetters: String = ""
-    
-    private var wordHint: (key: String, value: String) = getRandomWord()
-    
+        
     @State
     private var word: String
     
@@ -61,117 +59,12 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            VStack {
-                Text("Word Gueser")
-                    .font(.title)
-                Text("Game Record")
-                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    .padding(.top, 10)
-                ScrollView {
-                    ForEach(gameRecordList) { gameRecord in
-                        HStack {
-                            Text("Word: \(gameRecord.word)")
-                            Text("Result: \(gameRecord.winLoss)")
-                            Text("Strikes: \(gameRecord.strikes)")
-                        }
-                    }
-                }
-                .frame(height: 100)
-            }
-            .offset(y: -280)
-            
-            HStack {
-    
-                GroupBox() {
-                    Text(wordList[0])
-                }
-                GroupBox() {
-                    Text(wordList[1])
-                }
-                GroupBox() {
-                    Text(wordList[2])
-                }
-                GroupBox() {
-                    Text(wordList[3])
-                }
-                GroupBox() {
-                    Text(wordList[4])
-                }
-            
-            }
-            .offset(y: -70)
-
-            VStack {
-                if (gameOver) {
-                    if (isWin) {
-                        if (strikeCount == 0) {
-                            Text("No Strikes!")
-                                .font(.system(size: 36))
-                                .frame(width: 200, height: 200)
-                                .scaleEffect(scale)
-                                .onAppear {
-                                    let baseAnimation = Animation.easeInOut(duration: 1)
-                                    let repeated = baseAnimation.repeatCount(5, autoreverses: true)
-
-                                    withAnimation(repeated) {
-                                        scale = 0.5
-                                    }
-                                }
-                        } else {
-                            Text("You Win! :)")
-                        }
-                    } else {
-                        Text("You Lose :(")
-                    }
-                } else {
-                    Text( "Select letter to guess")
-                }
-            }
-            .offset(y: 10)
-            
-            VStack {
-                SelectedLetters
-            }
-            .offset(y: 100)
-            
-            VStack {
-                HStack {
-                    
-                    GroupBox() {
-                        Text(strikeList[0])
-                    }
-                    .backgroundStyle(strikeList[0] == "X" ? Color.red : strikeList[0] == "W" ? Color.green : Color.gray)
-                    GroupBox() {
-                        Text(strikeList[1])
-                    }
-                    .backgroundStyle(strikeList[1] == "X" ? Color.red : strikeList[1] == "W" ? Color.green : Color.gray)
-                    GroupBox() {
-                        Text(strikeList[2])
-                    }
-                    .backgroundStyle(strikeList[2] == "X" ? Color.red : strikeList[2] == "W" ? Color.green : Color.gray)
-                    
-                }
-            }
-            .offset(y: 200)
-            
-            VStack {
-                Button(action: {
-                    hintVisible = !hintVisible
-                }) {
-                    Text(hintVisible ? hint : "Click to see hint")
-                }
-                .disabled(gameOver)
-                .offset(y: -20)
-                
-                Button(action: {
-                    wordVisible = !wordVisible
-                }) {
-                    Text(wordVisible ? word : "Click to see word")
-                }
-                .disabled(gameOver)
-            }
-            .offset(y: 340)
-
+            HeaderView
+            GuessView
+            ResultView
+            SelectorView
+            StrikeView
+            HintView
             
             if (gameOver) {
                 Button("Play Again") {
@@ -183,7 +76,80 @@ struct ContentView: View {
         }
     }
     
-    var SelectedLetters: some View {
+    var HeaderView: some View {
+        VStack {
+            Text("Word Gueser")
+                .font(.title)
+            Text("Game Record")
+                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                .padding(.top, 10)
+            ScrollView {
+                ForEach(gameRecordList) { gameRecord in
+                    HStack {
+                        Text("Word: \(gameRecord.word)")
+                        Text("Result: \(gameRecord.winLoss)")
+                        Text("Strikes: \(gameRecord.strikes)")
+                    }
+                }
+            }
+            .frame(height: 100)
+        }
+        .offset(y: -280)
+    }
+    
+    var GuessView: some View {
+        HStack {
+            GroupBox() {
+                Text(wordList[0])
+            }
+            GroupBox() {
+                Text(wordList[1])
+            }
+            GroupBox() {
+                Text(wordList[2])
+            }
+            GroupBox() {
+                Text(wordList[3])
+            }
+            GroupBox() {
+                Text(wordList[4])
+            }
+        
+        }
+        .offset(y: -70)
+    }
+    
+    var ResultView: some View {
+        VStack {
+            if (gameOver) {
+                if (isWin) {
+                    if (strikeCount == 0) {
+                        Text("No Strikes!")
+                            .font(.system(size: 36))
+                            .frame(width: 200, height: 200)
+                            .scaleEffect(scale)
+                            .onAppear {
+                                let baseAnimation = Animation.easeInOut(duration: 1)
+                                let repeated = baseAnimation.repeatCount(5, autoreverses: true)
+
+                                withAnimation(repeated) {
+                                    scale = 0.5
+                                }
+                            }
+                    } else {
+                        Text("You Win! :)")
+                    }
+                } else {
+                    Text("You Lose :(")
+                }
+            } else {
+                Text( "Select letter to guess")
+            }
+        }
+        .offset(y: 10)
+    }
+    
+    var SelectorView: some View {
         VStack {
             HStack {
                 ForEach(alphabet, id: \.self) { letter in
@@ -232,6 +198,49 @@ struct ContentView: View {
                 }
             }
         }
+        .offset(y: 100)
+    }
+    
+    var StrikeView: some View {
+        VStack {
+            HStack {
+                
+                GroupBox() {
+                    Text(strikeList[0])
+                }
+                .backgroundStyle(strikeList[0] == "X" ? Color.red : strikeList[0] == "W" ? Color.green : Color.gray)
+                GroupBox() {
+                    Text(strikeList[1])
+                }
+                .backgroundStyle(strikeList[1] == "X" ? Color.red : strikeList[1] == "W" ? Color.green : Color.gray)
+                GroupBox() {
+                    Text(strikeList[2])
+                }
+                .backgroundStyle(strikeList[2] == "X" ? Color.red : strikeList[2] == "W" ? Color.green : Color.gray)
+                
+            }
+        }
+        .offset(y: 200)
+    }
+    
+    var HintView: some View {
+        VStack {
+            Button(action: {
+                hintVisible = !hintVisible
+            }) {
+                Text(hintVisible ? hint : "Click to see hint")
+            }
+            .disabled(gameOver)
+            .offset(y: -20)
+            
+            Button(action: {
+                wordVisible = !wordVisible
+            }) {
+                Text(wordVisible ? word : "Click to see word")
+            }
+            .disabled(gameOver)
+        }
+        .offset(y: 340)
     }
     
     
