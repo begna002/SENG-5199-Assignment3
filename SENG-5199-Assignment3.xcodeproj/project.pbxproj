@@ -12,6 +12,7 @@
 		743B53142BA60407008665E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 743B53132BA60407008665E4 /* Assets.xcassets */; };
 		743B53172BA60407008665E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 743B53162BA60407008665E4 /* Preview Assets.xcassets */; };
 		743B53202BA681F7008665E4 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743B531F2BA681F7008665E4 /* Strings.swift */; };
+		743B53232BA68AAE008665E4 /* EffectsLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 743B53222BA68AAE008665E4 /* EffectsLibrary */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				743B53232BA68AAE008665E4 /* EffectsLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +88,9 @@
 			dependencies = (
 			);
 			name = "SENG-5199-Assignment3";
+			packageProductDependencies = (
+				743B53222BA68AAE008665E4 /* EffectsLibrary */,
+			);
 			productName = "SENG-5199-Assignment3";
 			productReference = 743B530C2BA60406008665E4 /* SENG-5199-Assignment3.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +119,9 @@
 				Base,
 			);
 			mainGroup = 743B53032BA60406008665E4;
+			packageReferences = (
+				743B53212BA68AAE008665E4 /* XCRemoteSwiftPackageReference "effects-library" */,
+			);
 			productRefGroup = 743B530D2BA60406008665E4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -346,6 +354,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		743B53212BA68AAE008665E4 /* XCRemoteSwiftPackageReference "effects-library" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/GetStream/effects-library";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		743B53222BA68AAE008665E4 /* EffectsLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 743B53212BA68AAE008665E4 /* XCRemoteSwiftPackageReference "effects-library" */;
+			productName = EffectsLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 743B53042BA60406008665E4 /* Project object */;
 }

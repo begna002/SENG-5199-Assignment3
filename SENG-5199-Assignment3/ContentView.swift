@@ -110,15 +110,15 @@ struct ContentView: View {
                     GroupBox() {
                         Text(strikeList[0])
                     }
-                    .backgroundStyle(strikeList[0] != "" ? Color.red : Color.gray)
+                    .backgroundStyle(strikeList[0] == "X" ? Color.red : strikeList[0] == "W" ? Color.green : Color.gray)
                     GroupBox() {
                         Text(strikeList[1])
                     }
-                    .backgroundStyle(strikeList[1] != "" ? Color.red : Color.gray)
+                    .backgroundStyle(strikeList[1] == "X" ? Color.red : strikeList[1] == "W" ? Color.green : Color.gray)
                     GroupBox() {
                         Text(strikeList[2])
                     }
-                    .backgroundStyle(strikeList[2] != "" ? Color.red : Color.gray)
+                    .backgroundStyle(strikeList[2] == "X" ? Color.red : strikeList[2] == "W" ? Color.green : Color.gray)
                     
                 }
                 
@@ -127,16 +127,16 @@ struct ContentView: View {
                 }) {
                     Text(wordVisible || gameOver ? word : "Click to see word")
                 }
-                .offset(y: 50)
+                .offset(y: 100)
             }
-            .offset(y: 220)
+            .offset(y: 240)
 
             
             if (gameOver) {
                 Button("Play Again") {
                     resetGame()
                 }
-                .offset(y: 250)
+                .offset(y: 290)
             }
             
         }
@@ -146,14 +146,15 @@ struct ContentView: View {
         VStack {
             HStack {
                 ForEach(alphabet, id: \.self) { letter in
-                    if (alphabet.firstIndex(of: letter) ?? 0 <= 13) {
+                    if (alphabet.firstIndex(of: letter) ?? 0 <= 9) {
                         Button(action: {
                             checkLetter(letter: letter)
                         }) {
                             Text(letter)
                                 .font(.title)
-                                .background(guessedLetters.contains(letter) ? Color.gray : Color.clear)
                         }
+                        .frame(width: 24)
+                        .background(guessedLetters.contains(letter) ? Color.gray : Color.clear)
                         .disabled(gameOver || guessedLetters.contains(letter))
                         
                     }
@@ -161,14 +162,30 @@ struct ContentView: View {
             }
             HStack {
                 ForEach(alphabet, id: \.self) { letter in
-                    if (alphabet.firstIndex(of: letter) ?? 0 > 13) {
+                    if (alphabet.firstIndex(of: letter) ?? 0 > 9 && alphabet.firstIndex(of: letter) ?? 0 <= 19) {
                         Button(action: {
                             checkLetter(letter: letter)
                         }) {
                             Text(letter)
                                 .font(.title)
-                                .background(guessedLetters.contains(letter) ? Color.gray : Color.clear)
                         }
+                        .frame(width: 24)
+                        .background(guessedLetters.contains(letter) ? Color.gray : Color.clear)
+                        .disabled(gameOver || guessedLetters.contains(letter))
+                    }
+                }
+            }
+            HStack {
+                ForEach(alphabet, id: \.self) { letter in
+                    if (alphabet.firstIndex(of: letter) ?? 0 > 19) {
+                        Button(action: {
+                            checkLetter(letter: letter)
+                        }) {
+                            Text(letter)
+                                .font(.title)
+                        }
+                        .frame(width: 24)
+                        .background(guessedLetters.contains(letter) ? Color.gray : Color.clear)
                         .disabled(gameOver || guessedLetters.contains(letter))
                     }
                 }
@@ -180,7 +197,7 @@ struct ContentView: View {
     func resetGame() {
         gameRecordList.append(GameRecord(id: UUID().uuidString,
                                          word: word,
-                                         winLoss: isWin ? "Win" : "Loss",
+                                         winLoss: isWin ? "W" : "L",
                                          strikes: strikeCount))
         guessedLetters = ""
         wordList = ["", "", "", "", "", ""]
@@ -208,6 +225,11 @@ struct ContentView: View {
                 if (hitCount == 5) {
                     gameOver = true
                     isWin = true
+                    for i in 0...2 {
+                        if (strikeList[i] != "X") {
+                            strikeList[i] = "W"
+                        }
+                    }
                 }
                 found = true
             }
