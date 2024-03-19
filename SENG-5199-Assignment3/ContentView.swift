@@ -78,7 +78,7 @@ struct ContentView: View {
     
     var HeaderView: some View {
         VStack {
-            Text("Word Gueser")
+            Text("Word Guesser")
                 .font(.title)
             Text("Game Record")
                 .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
