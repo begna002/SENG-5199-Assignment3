@@ -244,11 +244,6 @@ struct ContentView: View {
     
     
     func resetGame() {
-        gameRecordList.append(GameRecord(id: UUID().uuidString,
-                                         word: word,
-                                         winLoss: isWin ? "W" : "L",
-                                         strikes: strikeCount))
-        
         let wordHint: (key: String, value: String) = getRandomWord()
         word = wordHint.value
         hint = wordHint.key
@@ -280,6 +275,7 @@ struct ContentView: View {
                 if (hitCount == 5) {
                     gameOver = true
                     isWin = true
+                    addGameRecord()
                     for i in 0...2 {
                         if (strikeList[i] != "X") {
                             strikeList[i] = "W"
@@ -298,11 +294,18 @@ struct ContentView: View {
         strikeCount += 1
         if (strikeCount == 3) {
             gameOver = true
-            
+            addGameRecord()
             for (index, char) in word.enumerated() {
                 wordList[index] = String(char).uppercased()
             }
         }
+    }
+    
+    func addGameRecord() {
+        gameRecordList.append(GameRecord(id: UUID().uuidString,
+                                         word: word,
+                                         winLoss: isWin ? "W" : "L",
+                                         strikes: strikeCount))
     }
     
     struct GameRecord: Identifiable {
