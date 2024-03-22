@@ -160,10 +160,11 @@ struct ContentView: View {
                             Text(letter)
                                 .font(.title)
                         }
-                        .frame(width: 24)
+                        .frame(width: 28)
                         .background(guessedLetters.contains(letter) ? Color.gray : Color.clear)
                         .disabled(gameOver || guessedLetters.contains(letter))
-                        
+                        .border(Color.gray, width: 1)
+
                     }
                 }
             }
@@ -176,12 +177,14 @@ struct ContentView: View {
                             Text(letter)
                                 .font(.title)
                         }
-                        .frame(width: 24)
+                        .frame(width: 28)
                         .background(guessedLetters.contains(letter) ? Color.gray : Color.clear)
                         .disabled(gameOver || guessedLetters.contains(letter))
+                        .border(Color.gray, width: 1)
                     }
                 }
             }
+            .offset(y: 10)
             HStack {
                 ForEach(alphabet, id: \.self) { letter in
                     if (alphabet.firstIndex(of: letter) ?? 0 > 19) {
@@ -191,12 +194,14 @@ struct ContentView: View {
                             Text(letter)
                                 .font(.title)
                         }
-                        .frame(width: 24)
+                        .frame(width: 28)
                         .background(guessedLetters.contains(letter) ? Color.gray : Color.clear)
                         .disabled(gameOver || guessedLetters.contains(letter))
+                        .border(Color.gray, width: 1)
                     }
                 }
             }
+            .offset(y: 20)
         }
         .offset(y: 100)
     }
@@ -219,7 +224,7 @@ struct ContentView: View {
                 
             }
         }
-        .offset(y: 200)
+        .offset(y: 220)
     }
     
     var HintView: some View {
